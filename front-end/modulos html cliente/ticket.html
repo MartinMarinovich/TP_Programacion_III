@@ -1,0 +1,6 @@
+
+const doc = new jsPDF();
+doc.text("Ticket de compra", 10, 10);
+doc.text(`Cliente: ${nombreCliente}`, 10, 20);
+
+doc.save("ticket.pdf");
