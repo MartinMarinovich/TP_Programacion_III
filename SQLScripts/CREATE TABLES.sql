@@ -1,0 +1,51 @@
+USE pilchas_autoservicio;
+GO
+
+CREATE TABLE Usuarios (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Password NVARCHAR(255) NOT NULL,
+    Nombre NVARCHAR(100) NOT NULL,
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    UpdatedAt DATETIME2 DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE Productos (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    Precio DECIMAL(10,2) NOT NULL CHECK (Precio >= 0),
+    Imagen NVARCHAR(255) NULL,
+    Tipo NVARCHAR(20) NOT NULL CHECK (Tipo IN ('remera', 'pantalon')),
+    Activo BIT NOT NULL DEFAULT 1,
+    Color NVARCHAR(50) NOT NULL,
+    Descripcion NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    UpdatedAt DATETIME2 DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE Ventas (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    NombreCliente NVARCHAR(100) NOT NULL,
+    FechaVenta DATETIME2 NOT NULL DEFAULT GETDATE(),
+    PrecioTotal DECIMAL(10,2) NOT NULL CHECK (PrecioTotal >= 0),
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    UpdatedAt DATETIME2 DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE ProductosVentas (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    IdVenta INT NOT NULL,
+    IdProducto INT NOT NULL,
+    Cantidad INT NOT NULL CHECK (Cantidad > 0),
+    PrecioUnitario DECIMAL(10,2) NOT NULL CHECK (PrecioUnitario >= 0),
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    UpdatedAt DATETIME2 DEFAULT GETDATE(),
+    FOREIGN KEY (IdVenta) REFERENCES Ventas(Id) ON DELETE CASCADE,
+    FOREIGN KEY (IdProducto) REFERENCES Productos(Id) ON DELETE CASCADE
+);
+GO
+
+

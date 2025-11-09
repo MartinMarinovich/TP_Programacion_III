@@ -2,56 +2,66 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/index.js';
 
 export const Producto = sequelize.define('Producto', {
-  id: {
+  Id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
+    field: 'Id'
   },
-  nombre: {
+  Nombre: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    field: 'Nombre',
     validate: {
       notEmpty: true
     }
   },
-  precio: {
+  Precio: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    field: 'Precio',
     validate: {
       isDecimal: true,
       min: 0
     }
   },
-  imagen: {
+  Imagen: {
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: true,
+    field: 'Imagen'
   },
-  tipo: {
-    type: DataTypes.ENUM('remera', 'pantalon'),
+  Tipo: {
+    type: DataTypes.STRING(20),
     allowNull: false,
+    field: 'Tipo',
     validate: {
       isIn: [['remera', 'pantalon']]
     }
   },
-  activo: {
+  Activo: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: true
+    defaultValue: true,
+    field: 'Activo'
   },
-  color: {
+  Color: {
     type: DataTypes.STRING(50),
     allowNull: false,
+    field: 'Color',
     validate: {
       notEmpty: true
     }
   },
-  descripcion: {
+  Descripcion: {
     type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: true,
+    field: 'Descripcion'
   }
 }, {
-  tableName: 'productos',
-  timestamps: true
+  tableName: 'Productos',
+  timestamps: true,
+  createdAt: 'CreatedAt',
+  updatedAt: 'UpdatedAt'
 });
 
 

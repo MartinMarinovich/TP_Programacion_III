@@ -7,7 +7,7 @@ export const crearUsuario = async (req, res) => {
   try {
     const { email, password, nombre } = req.body;
     
-    const usuarioExistente = await Usuario.findOne({ where: { email } });
+    const usuarioExistente = await Usuario.findOne({ where: { Email: email } });
     
     if (usuarioExistente) {
       return res.status(400).json({
@@ -19,16 +19,16 @@ export const crearUsuario = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     const usuario = await Usuario.create({
-      email,
-      password: hashedPassword,
-      nombre
+      Email: email,
+      Password: hashedPassword,
+      Nombre: nombre
     });
 
     const usuarioRespuesta = {
-      id: usuario.id,
-      email: usuario.email,
-      nombre: usuario.nombre,
-      createdAt: usuario.createdAt
+      id: usuario.Id,
+      email: usuario.Email,
+      nombre: usuario.Nombre,
+      createdAt: usuario.CreatedAt
     };
 
     res.status(201).json({
