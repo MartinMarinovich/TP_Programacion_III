@@ -1,7 +1,7 @@
 {
   "name": "pilchas-autoservicio-backend",
   "version": "1.0.0",
-  "description": "Backend para PilchasAutoservicio - Sistema de autoservicio de ropa",
+  "description": "PilchasAutoservicio - Sistema de autoservicio de ropa",
   "main": "server.js",
   "type": "module",
   "scripts": {
