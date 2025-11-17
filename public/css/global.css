@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--fondo);
+    color: var(--texto);
+    transition: 0.3s ease-in-out;
+}
+
+/* -------------------- TEMAS -------------------- */
+:root {
+    --fondo: #ffffff;
+    --texto: #222;
+    --card: #f1f1f1;
+    --primary: #0066ff;
+}
+
+body.dark {
+    --fondo: #1a1a1a;
+    --texto: #e6e6e6;
+    --card: #2a2a2a;
+    --primary: #3399ff;
+}
+
+/* -------------------- NAVBAR -------------------- */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card);
+    padding: 15px 20px;
+    box-shadow: 0px 2px 6px #0003;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+}
+
+.app-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links a,
+#temaBtn {
+    margin-left: 10px;
+    text-decoration: none;
+    color: var(--texto);
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: .2s;
+    cursor: pointer;
+    border: none;
+    background: var(--primary);
+    color: white;
+}
+
+.nav-links a:hover,
+#temaBtn:hover {
+    background: #004ec2;
+}

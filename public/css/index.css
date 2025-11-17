@@ -66,6 +66,14 @@ h2{
     
 }
 
+
+
+button:hover {
+    background: #324e56c2;
+    transition-delay: 0.1s;
+}
+
+
 .footer {
     min-width: 70%;
     text-align: center;
@@ -82,4 +90,7 @@ h2{
         padding: 30px 10px;
     }
 }
+ 
+
+
 

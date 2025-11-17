@@ -1,0 +1,40 @@
+h2 {
+    text-align: center;
+    margin: 20px;
+}
+
+#lista {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.item {
+    background: var(--card);
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item button {
+    padding: 8px 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.confirmar {
+    display: block;
+    margin: 25px auto;
+    padding: 12px 16px;
+    background: green;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}

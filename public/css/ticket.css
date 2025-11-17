@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+    margin: 20px;
+}
+
+#ticket {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+button {
+    display: block;
+    width: 220px;
+    padding: 12px;
+    margin: 20px auto;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #004ec2;
+}

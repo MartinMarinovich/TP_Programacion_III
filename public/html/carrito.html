@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | PilchasAutoservicio</title>
+    <link rel="stylesheet" href="../css/carrito.css">
+    
+</head>
+<body>
+
+
+    <div id="navbar">
+        
+    </div>
+
+    <h2>Tu Carrito</h2>
+
+    <div id="lista"></div>
+
+    <button class="confirmar" onclick="confirmar()">Finalizar compra</button>
+
+    <script src="js/carrito.js"></script>
+    <script src="../modulos JS/tema.js"></script>
+    
+    <script>
+        fetch("navBar.html")
+        .then(r => r.text())
+        .then(html => document.getElementById("navbar").innerHTML = html);
+    </script>
+
+
+
+
+</body>
+</html>
