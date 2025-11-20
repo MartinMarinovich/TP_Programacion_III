@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Productos | PilchasAutoservicio</title>
-  <link rel="stylesheet" href="../css/productos.css" />
+  <link rel="icon" href="/uploads/logo.png">
+  <link rel="stylesheet" href="/css/productos.css" />
   
 </head>
 <body>
@@ -14,8 +15,8 @@
     <h2 class="titulo">Nuestros Productos</h2>
 
     <div class="categorias">
-        <button onclick="cambiarCategoria('categoria1')">Categoría 1</button>
-        <button onclick="cambiarCategoria('categoria2')">Categoría 2</button>
+        <button onclick="cambiarCategoria('remeras')">Remeras</button>
+        <button onclick="cambiarCategoria('pantalones')">Pantalones</button>
     </div>
 
     <div id="productos" class="grid-productos"></div>
@@ -26,12 +27,12 @@
         <button onclick="siguiente()">Siguiente</button>
     </div>
 
-    <script src="../modulos JS/api.js"></script>
-    <script src="../modulos JS/productos.js"></script>
-    <script src="../modulos JS/tema.js"></script>
+    <script type="module" src="/js/api.js"></script>
+    <script type="module" src="/js/productos.js"></script>
+    <script type="module" src="/js/tema.js"></script>
 
     <script>
-      fetch("navBar.html")
+      fetch("/html/navBar.html")
       .then(r => r.text())
       .then(html => document.getElementById("navbar").innerHTML = html);
     </script>

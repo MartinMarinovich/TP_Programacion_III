@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket | PilchasAutoservicio</title>
-    <link rel="stylesheet" href="../css/ticket.css">
+    <link rel="icon" href="/uploads/logo.png">
+    <link rel="stylesheet" href="/css/ticket.css">
     
 </head>
 <body>
@@ -18,11 +19,11 @@
     <button onclick="inicio()">Volver a comenzar</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="../modulos JS/ticket.js"></script>
-    <script src="../modulos JS/tema.js"></script>
+    <script type="module" src="/js/ticket.js"></script>
+    <script type="module" src="/js/tema.js"></script>
 
     <script>
-        fetch("navBar.html")
+        fetch("/html/navBar.html")
         .then(r => r.text())
         .then(html => document.getElementById("navbar").innerHTML = html);
     </script>

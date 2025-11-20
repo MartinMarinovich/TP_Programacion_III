@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PilchasAutoservicio</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <strong>PilchasAutoservicio</strong> - Panel de Administración
+        </div>
+        <div>
+            <span>Bienvenido, <%= usuario.usuarioNombre %></span>
+            <a href="<%= Endpoints.admin.auth.logout %>">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Panel de Administración</h1>
+            <p>Gestión de Productos</p>
+        </div>
+
+        <% if (mensaje) { %>
+            <div class="alert alert-success">
+                <%= mensaje %>
+            </div>
+        <% } %>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <div class="action-bar">
+            <h2>Productos</h2>
+            <a href="<%= Endpoints.admin.productos.nuevo %>" class="btn btn-success">+ Agregar Producto</a>
+        </div>
+
+        <div class="productos-section">
+            <h2>Remeras</h2>
+            <% if (remeras.length === 0) { %>
+                <p>No hay remeras registradas</p>
+            <% } else { %>
+                <div class="productos-grid">
+                    <% remeras.forEach(producto => { %>
+                        <div class="producto-card <%= producto.Activo ? '' : 'inactivo' %>">
+                            <% if (producto.Imagen) { %>
+                                <img src="<%= producto.Imagen %>" alt="<%= producto.Nombre %>">
+                            <% } else { %>
+                                <img src="/uploads/productos/placeholder.jpg" alt="Sin imagen">
+                            <% } %>
+                            <h3><%= producto.Nombre %></h3>
+                            <p><strong>Color:</strong> <%= producto.Color %></p>
+                            <p><strong>Descripción:</strong> <%= producto.Descripcion || 'Sin descripción' %></p>
+                            <p class="precio">$<%= parseFloat(producto.Precio).toFixed(2) %></p>
+                            <span class="estado <%= producto.Activo ? 'activo' : 'inactivo' %>">
+                                <%= producto.Activo ? 'ACTIVO' : 'INACTIVO' %>
+                            </span>
+                            <div class="producto-actions">
+                                <a href="<%= Endpoints.admin.productos.editar(producto.Id) %>" class="btn btn-warning">Editar</a>
+                                <% if (producto.Activo) { %>
+                                    <button class="btn btn-danger" onclick="confirmarAccion('<%= producto.Id %>', 'desactivar', '<%= producto.Nombre %>')">
+                                        Desactivar
+                                    </button>
+                                <% } else { %>
+                                    <button class="btn btn-info" onclick="confirmarAccion('<%= producto.Id %>', 'activar', '<%= producto.Nombre %>')">
+                                        Activar
+                                    </button>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="productos-section">
+            <h2>Pantalones</h2>
+            <% if (pantalones.length === 0) { %>
+                <p>No hay pantalones registrados</p>
+            <% } else { %>
+                <div class="productos-grid">
+                    <% pantalones.forEach(producto => { %>
+                        <div class="producto-card <%= producto.Activo ? '' : 'inactivo' %>">
+                            <% if (producto.Imagen) { %>
+                                <img src="<%= producto.Imagen %>" alt="<%= producto.Nombre %>">
+                            <% } else { %>
+                                <img src="/uploads/productos/placeholder.jpg" alt="Sin imagen">
+                            <% } %>
+                            <h3><%= producto.Nombre %></h3>
+                            <p><strong>Color:</strong> <%= producto.Color %></p>
+                            <p><strong>Descripción:</strong> <%= producto.Descripcion || 'Sin descripción' %></p>
+                            <p class="precio">$<%= parseFloat(producto.Precio).toFixed(2) %></p>
+                            <span class="estado <%= producto.Activo ? 'activo' : 'inactivo' %>">
+                                <%= producto.Activo ? 'ACTIVO' : 'INACTIVO' %>
+                            </span>
+                            <div class="producto-actions">
+                                <a href="<%= Endpoints.admin.productos.editar(producto.Id) %>" class="btn btn-warning">Editar</a>
+                                <% if (producto.Activo) { %>
+                                    <button class="btn btn-danger" onclick="confirmarAccion('<%= producto.Id %>', 'desactivar', '<%= producto.Nombre %>')">
+                                        Desactivar
+                                    </button>
+                                <% } else { %>
+                                    <button class="btn btn-info" onclick="confirmarAccion('<%= producto.Id %>', 'activar', '<%= producto.Nombre %>')">
+                                        Activar
+                                    </button>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTexto"></h3>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="ejecutarAccion()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const endpoints = {
+            activar: '<%= Endpoints.admin.productos.activar(":id") %>',
+            desactivar: '<%= Endpoints.admin.productos.desactivar(":id") %>'
+        };
+        
+        let accionPendiente = null;
+
+        function confirmarAccion(id, accion, nombre) {
+            const modal = document.getElementById('modalConfirmacion');
+            const texto = document.getElementById('modalTexto');
+            
+            if (accion === 'desactivar') {
+                texto.textContent = `¿Está seguro de desactivar el producto "${nombre}"?`;
+            } else {
+                texto.textContent = `¿Está seguro de activar el producto "${nombre}"?`;
+            }
+            
+            accionPendiente = { id, accion };
+            modal.classList.add('active');
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById('modalConfirmacion');
+            modal.classList.remove('active');
+            accionPendiente = null;
+        }
+
+        function ejecutarAccion() {
+            if (accionPendiente) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                const actionUrl = endpoints[accionPendiente.accion].replace(':id', accionPendiente.id);
+                form.action = actionUrl;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</body>
+</html>
+
