@@ -41,7 +41,6 @@ export const Producto = sequelize.define('Producto', {
   Activo: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: true,
     field: 'Activo'
   },
   Color: {

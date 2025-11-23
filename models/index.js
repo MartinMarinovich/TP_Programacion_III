@@ -6,10 +6,10 @@ import { ProductoVenta } from './ProductoVenta.js';
 Producto.belongsToMany(Venta, { through: ProductoVenta, foreignKey: 'IdProducto' });
 Venta.belongsToMany(Producto, { through: ProductoVenta, foreignKey: 'IdVenta' });
 
-Venta.hasMany(ProductoVenta, { foreignKey: 'IdVenta', onDelete: 'CASCADE' });
+Venta.hasMany(ProductoVenta, { foreignKey: 'IdVenta' });
 ProductoVenta.belongsTo(Venta, { foreignKey: 'IdVenta' });
 
-Producto.hasMany(ProductoVenta, { foreignKey: 'IdProducto', onDelete: 'CASCADE' });
+Producto.hasMany(ProductoVenta, { foreignKey: 'IdProducto' });
 ProductoVenta.belongsTo(Producto, { foreignKey: 'IdProducto' });
 
 export { Producto, Usuario, Venta, ProductoVenta };
