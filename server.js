@@ -72,12 +72,18 @@ const inicializarDatos = async () => {
     const usuarioExistente = await Usuario.findOne({ where: { Email: 'sysadmin@pilchas.com' } });
     
     if (!usuarioExistente) {
-      const hashedPassword = await bcrypt.hash('admin123', 10);
-      await Usuario.create({
-        Email: 'sysadmin@pilchas.com',
-        Password: hashedPassword,
-        Nombre: 'Administrador Sistema'
+      const response = await fetch(`http://localhost:${PORT}/api/usuarios`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: 'sysadmin@pilchas.com',
+          password: 'admin123',
+          nombre: 'Administrador Sistema'
+        })
       });
+    
     }
   } catch (error) {
     console.error('Error al inicializar datos:', error);
@@ -88,10 +94,10 @@ const iniciarServidor = async () => {
   try {
     await conectarDB();
     await sequelize.sync({ alter: false });
-    await inicializarDatos();
     
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
       console.log(`Servidor corriendo en http://localhost:${PORT}`);
+      await inicializarDatos();
     });
     
   } catch (error) {
