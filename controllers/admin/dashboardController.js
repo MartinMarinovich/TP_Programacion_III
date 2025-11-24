@@ -16,7 +16,7 @@ export const mostrarDashboard = async (req, res) => {
     const remeras = productos.filter(p => p.Tipo === 'remera');
     const pantalones = productos.filter(p => p.Tipo === 'pantalon');
 
-    res.render('dashboard', {
+    res.render('admin/dashboard', {
       usuario: req.usuario,
       remeras,
       pantalones,
@@ -25,7 +25,7 @@ export const mostrarDashboard = async (req, res) => {
       Endpoints
     });
   } catch (error) {
-    res.render('dashboard', {
+    res.render('admin/dashboard', {
       usuario: req.usuario,
       remeras: [],
       pantalones: [],
@@ -37,7 +37,7 @@ export const mostrarDashboard = async (req, res) => {
 };
 
 export const mostrarFormularioNuevo = (req, res) => {
-  res.render('producto-form', {
+  res.render('admin/producto-form', {
     usuario: req.usuario,
     producto: null,
     accion: 'nuevo',
@@ -64,7 +64,7 @@ export const procesarNuevoProducto = async (req, res) => {
 
     res.redirect(`${Endpoints.admin.dashboard.ver}?mensaje=Producto creado exitosamente`);
   } catch (error) {
-    res.render('producto-form', {
+    res.render('admin/producto-form', {
       usuario: req.usuario,
       producto: null,
       accion: 'nuevo',
@@ -84,7 +84,7 @@ export const mostrarFormularioEditar = async (req, res) => {
       return res.redirect(`${Endpoints.admin.dashboard.ver}?error=Producto no encontrado`);
     }
 
-    res.render('producto-form', {
+    res.render('admin/producto-form', {
       usuario: req.usuario,
       producto,
       accion: 'editar',
