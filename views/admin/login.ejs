@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PilchasAutoservicio</title>
+    <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="/uploads/logo.png" class="nav-logo" alt="Logo">
+            <span class="app-name">PilchasAutoservicio</span>
+        </div>
+        <div class="nav-links">
+            <a href="/cliente">Inicio</a>
+        </div>
+    </nav>
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
-        <p style="text-align: center; color: #7f8c8d; margin-bottom: 20px;">Panel de Administración</p>
-        
         <% if (error) { %>
             <div class="alert alert-error">
                 <%= error %>
@@ -31,7 +39,7 @@
             <button type="submit" class="btn btn-primary">Ingresar</button>
             
             <button type="button" class="btn btn-secondary" onclick="autocompletar()">
-                Acceso Rápido (Testing)
+                Acceso Rápido
             </button>
         </form>
     </div>

@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= accion === 'nuevo' ? 'Nuevo Producto' : 'Editar Producto' %> - PilchasAutoservicio</title>
+    <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-    <div class="navbar">
-        <div>
-            <strong>PilchasAutoservicio</strong> - Panel de Administración
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="/uploads/logo.png" class="nav-logo" alt="Logo">
+            <span class="app-name">PilchasAutoservicio</span>
         </div>
-        <div>
-            <a href="<%= Endpoints.admin.dashboard.ver %>">Volver al Dashboard</a>
+        <div class="nav-links">
+            <a href="<%= Endpoints.admin.dashboard.ver %>">Dashboard</a>
+            <a href="/cliente">Inicio</a>
             <a href="<%= Endpoints.admin.auth.logout %>">Cerrar Sesión</a>
         </div>
-    </div>
+    </nav>
 
     <div class="container">
         <div class="header">
@@ -92,23 +95,10 @@
                         type="file" 
                         id="imagen" 
                         name="imagen" 
-                        accept="image/*"
-                        onchange="previsualizarImagen(event)"
+                        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,.jpg,.jpeg,.png,.gif,.webp"
                     >
-                    <small>Formatos aceptados: JPG, PNG, GIF, WEBP (Máximo 5MB)</small>
+                    <small>Formatos aceptados: JPG, PNG, GIF, WEBP (Máximo 10MB)</small>
                 </div>
-
-                <% if (producto && producto.Imagen) { %>
-                    <div class="file-preview">
-                        <p><strong>Imagen actual:</strong></p>
-                        <img id="preview" src="<%= producto.Imagen %>" alt="<%= producto.Nombre %>">
-                    </div>
-                <% } else { %>
-                    <div class="file-preview" style="display: none;">
-                        <p><strong>Vista previa:</strong></p>
-                        <img id="preview" src="" alt="Vista previa">
-                    </div>
-                <% } %>
 
                 <button type="submit" class="btn btn-primary">
                     <%= accion === 'nuevo' ? 'Crear Producto' : 'Guardar Cambios' %>
@@ -121,21 +111,6 @@
         </div>
     </div>
 
-    <script>
-        function previsualizarImagen(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('preview');
-                    const container = preview.parentElement;
-                    preview.src = e.target.result;
-                    container.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 </body>
 </html>
 

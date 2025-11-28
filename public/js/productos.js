@@ -1,22 +1,34 @@
+import { obtenerProductos } from './api.js';
+
 let productos = [];
 let filtrados = [];
 let pagina = 1;
 const porPagina = 4;
 
 const usuario = localStorage.getItem("usuario");
-if (!usuario) window.location.href = "index.html";
+if (!usuario) window.location.href = "/cliente";
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 importar();
 
 async function importar() {
-    productos = await obtenerProductos(); 
-    cambiarCategoria("categoria1");
+    productos = await obtenerProductos();
+    if (productos.length === 0) {
+        document.getElementById("productos").innerHTML = "<p>No hay productos disponibles en este momento.</p>";
+        return;
+    }
+    cambiarCategoria("remeras");
 }
 
-function cambiarCategoria(cat) {
-    filtrados = productos.filter(p => p.categoria === cat);
+window.cambiarCategoria = function(cat) {
+    if (cat === 'remeras') {
+        filtrados = productos.filter(p => p.tipo === 'remera');
+    } else if (cat === 'pantalones') {
+        filtrados = productos.filter(p => p.tipo === 'pantalon');
+    } else {
+        filtrados = productos;
+    }
     pagina = 1;
     mostrar();
 }
@@ -29,13 +41,14 @@ function mostrar() {
     let fin = ini + porPagina;
 
     filtrados.slice(ini, fin).forEach(p => {
+        const nombreEscapado = p.nombre.replace(/'/g, "\\'");
         cont.innerHTML += `
             <div class="card">
-                <img src="${p.imagen}">
+                <img src="${p.imagen}" alt="${p.nombre}">
                 <h3>${p.nombre}</h3>
-                <p>${p.descripcion}</p>
-                <p><b>$${p.precio}</b></p>
-                <button onclick="agregar('${p._id}', '${p.nombre}', ${p.precio})">Agregar</button>
+                <p>${p.descripcion || ''}</p>
+                <p><b>$${p.precio.toFixed(2)}</b></p>
+                <button onclick="agregar(${p.id}, '${nombreEscapado}', ${p.precio})">Agregar</button>
             </div>
         `;
     });
@@ -44,12 +57,13 @@ function mostrar() {
 }
 
 window.agregar = function (id, nombre, precio) {
-    const prod = carrito.find(p => p.id === id);
+    const idNum = typeof id === 'string' ? parseInt(id) : id;
+    const prod = carrito.find(p => p.id === idNum);
 
     if (prod) {
         prod.cantidad++;
     } else {
-        carrito.push({ id, nombre, precio, cantidad: 1 });
+        carrito.push({ id: idNum, nombre, precio, cantidad: 1 });
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
